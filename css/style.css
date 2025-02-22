@@ -767,6 +767,7 @@ h6 {
 .section-subtitle {
     font-size: 18px;
     padding-top: 0;
+    line-height: 1.6;
 }
 
 .section-heading h3 {
@@ -2328,6 +2329,68 @@ blockquote {
         height: 432px !important;
     }
 
+}
+
+
+/* ----------------------------------------- */
+/* 📱 MOBILE RESPONSIVENESS (FOR SCREENS < 768px) */
+/* ----------------------------------------- */
+@media (max-width: 768px) {
+    
+    /* Make sections stack vertically */
+    .row {
+        flex-direction: column;  
+        padding: 20px;  
+    }
+
+    /* Improve readability of headings */
+    .section-heading {
+        padding: 15px;
+        text-align: center;  
+    }
+
+    /* Adjust icon blocks */
+    .icon-block {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Make images responsive */
+    .col-4 img {
+        width: 80%;  
+        height: auto;
+        margin: 0 auto;  
+    }
+
+    /* Optimize navigation for mobile */
+    #header nav {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #header nav a {
+        padding: 15px;
+        font-size: 18px;  
+    }
+
+    /* Increase button size for better touch experience */
+    .button {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    /* Adjust icon & text alignment in features section */
+    .icon-block {
+        text-align: center;
+        display: block;
+        padding-bottom: 15px;
+    }
+
+    .icon img {
+        width: 50px;  
+    }
 }
 
 
