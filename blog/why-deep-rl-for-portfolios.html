@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Why Deep Reinforcement Learning Might Change Portfolio Management | Iqbal
+      K I
+    </title>
+    <meta
+      name="description"
+      content="A plain-language walkthrough of what deep reinforcement learning agents actually learn when managing a portfolio."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Research</p>
+            <h1>
+              Why Deep Reinforcement Learning Might Change Portfolio Management
+            </h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · August 2026 · 6 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            Ask a traditional portfolio model how much to allocate to equities
+            versus bonds, and it will give you an answer built on assumptions:
+            that returns follow a particular distribution, that risk is well
+            approximated by variance, that the relationships between assets
+            today look like the relationships between assets yesterday.
+            Markowitz's mean-variance framework and its descendants have been
+            enormously useful precisely because they make these assumptions
+            explicit. But markets don't always cooperate with them.
+          </p>
+
+          <p>
+            Deep reinforcement learning (DRL) takes a different starting point.
+            Instead of specifying a model of returns and solving for an optimal
+            allocation, you give an agent a reward signal — portfolio return,
+            adjusted for risk — and let it learn a policy through repeated
+            interaction with market data. No distributional assumptions, no
+            fixed rebalancing rule. Just a neural network updating its behaviour
+            based on what worked and what didn't.
+          </p>
+
+          <h2>What the agent actually learns</h2>
+          <p>
+            In the work I've published on this — most recently on
+            <a
+              href="https://doi.org/10.1007/s10690-026-09629-8"
+              target="_blank"
+              rel="noopener"
+              >volatility regime-dependent portfolio optimization</a
+            >
+            — the interesting result isn't that a DRL agent can allocate a
+            portfolio. It's <em>how</em> its behaviour shifts once volatility
+            regimes are made explicit in the state it observes. A well-trained
+            agent doesn't apply one static strategy; it learns something closer
+            to a family of strategies, switched in and out as market conditions
+            change.
+          </p>
+          <p>
+            That's not unlike what a good discretionary portfolio manager does
+            intuitively — de-risking into turbulence, leaning in during calm,
+            stable periods. The difference is that the agent's version of that
+            intuition is learned directly from historical price action, and can
+            be tested, measured, and interrogated in a way that human intuition
+            can't be.
+          </p>
+
+          <h2>Where it still falls short</h2>
+          <p>
+            None of this means DRL agents are ready to replace human portfolio
+            managers, and I don't think that's the right framing anyway. A few
+            honest limitations, from the empirical work in
+            <a
+              href="https://doi.org/10.3905/jfds.2025.1.210"
+              target="_blank"
+              rel="noopener"
+              >Indian capital markets</a
+            >
+            and elsewhere:
+          </p>
+          <ul>
+            <li>
+              <strong>Regime shifts the agent hasn't seen before.</strong> A
+              policy trained on historical data can struggle when markets enter
+              genuinely novel conditions — the thing backtests are structurally
+              bad at capturing.
+            </li>
+            <li>
+              <strong>Interpretability.</strong> It's one thing to observe that
+              an agent de-risks before a drawdown; it's another to explain
+              <em>why</em> in terms a risk committee would accept.
+            </li>
+            <li>
+              <strong>Transaction costs and capacity.</strong> Agents optimized
+              in simulation don't automatically account for the market impact of
+              actually executing their trades at scale.
+            </li>
+          </ul>
+
+          <p>
+            These aren't reasons to dismiss the approach — they're the actual
+            research agenda. Comparing agents across market-cap segments and
+            emerging-market conditions (the subject of two manuscripts currently
+            under review) is, in part, an attempt to understand exactly where
+            these limitations bite hardest.
+          </p>
+
+          <blockquote>
+            The point of this research isn't to prove machines can out-trade
+            humans. It's to understand, precisely, what a learned policy
+            captures that a fixed rule doesn't — and what it still misses.
+          </blockquote>
+
+          <p>
+            If you want the full technical detail, both papers are linked above
+            with their DOIs, and the rest of my publications are on the
+            <a href="../research.html">Research page</a>. I'll be writing more
+            here as the market-cap and emerging-market comparison work moves
+            through review.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>

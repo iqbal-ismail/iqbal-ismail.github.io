@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="Placeholder figure for publication">
+  <rect width="480" height="300" fill="#f3f5fa"/>
+  <rect x="1" y="1" width="478" height="298" fill="none" stroke="#dde2ec" stroke-width="2" stroke-dasharray="6 6"/>
+  <g fill="#0e2340" opacity="0.85">
+    <rect x="55" y="160" width="36" height="80"/>
+    <rect x="110" y="120" width="36" height="120"/>
+    <rect x="165" y="180" width="36" height="60"/>
+    <rect x="275" y="140" width="36" height="100"/>
+    <rect x="330" y="70" width="36" height="170"/>
+    <rect x="385" y="110" width="36" height="130"/>
+  </g>
+  <g fill="#ff6a13">
+    <rect x="220" y="90" width="36" height="150"/>
+  </g>
+  <line x1="40" y1="240" x2="440" y2="240" stroke="#aab4c8" stroke-width="1.5"/>
+  <line x1="40" y1="240" x2="40" y2="50" stroke="#aab4c8" stroke-width="1.5"/>
+  <text x="240" y="272" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" fill="#5c6779">Figure placeholder — replace with figure from paper</text>
+</svg>

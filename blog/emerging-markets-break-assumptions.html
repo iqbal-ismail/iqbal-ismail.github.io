@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Emerging Markets Break Your Assumptions Faster Than Developed Ones | Iqbal
+      K I
+    </title>
+    <meta
+      name="description"
+      content="Why agents trained on developed-market data don't transfer cleanly, and what that says about robustness claims in the DRL portfolio literature."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Research</p>
+            <h1>
+              Emerging Markets Break Your Assumptions Faster Than Developed Ones
+            </h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · July 2026 · 7 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            Most of the deep reinforcement learning portfolio literature — mine
+            included, until recently — starts with developed-market data. That's
+            a reasonable place to start: liquid, long histories, relatively
+            clean. But it also means most published claims about what these
+            agents "learn" are really claims about what they learn under
+            conditions that are, in a specific sense, unusually forgiving.
+          </p>
+
+          <p>
+            Comparing agent behaviour across market-cap segments and
+            emerging-market conditions — work I'm currently finishing — has been
+            a useful corrective to some assumptions I didn't know I was making.
+          </p>
+
+          <h2>Liquidity assumptions hide in the reward function</h2>
+          <p>
+            A reward function built around frictionless rebalancing implicitly
+            assumes you can execute your desired weights at something close to
+            the observed price. In smaller emerging-market names, that
+            assumption breaks down in ways developed-market backtests rarely
+            expose. An agent trained without any friction penalty will happily
+            propose rebalancing patterns that would move the market against
+            itself if actually executed.
+          </p>
+
+          <h2>Regime persistence is shorter</h2>
+          <p>
+            One thing that surprised me: volatility regimes in the
+            emerging-market segments of my data tend to be shorter and more
+            abrupt than their developed-market counterparts. An agent that's
+            learned to condition its behaviour on regime persistence —
+            de-risking gradually as volatility builds — has less runway to do
+            that gradually. The policy that works well in one setting doesn't
+            just perform worse in the other; it can fail in a qualitatively
+            different way, over-trading in response to noise it would otherwise
+            have learned to ignore.
+          </p>
+
+          <h2>What "robust" should actually mean</h2>
+          <p>
+            This is partly why I'm skeptical of robustness claims that rest on a
+            single market or a single time period, no matter how long the
+            backtest window. A policy that's robust across fifteen years of one
+            market has been tested on one draw from a much larger distribution
+            of possible market conditions. Testing across market-cap segments
+            and geographies isn't a nice-to-have extension — it's closer to the
+            actual test of whether an agent has learned something general or
+            just something local.
+          </p>
+
+          <blockquote>
+            A model that only works where you trained it hasn't learned a
+            strategy. It's memorized a market.
+          </blockquote>
+
+          <p>
+            I go into the empirical detail — and the friction-penalty design
+            that ended up mattering more than I expected — in the
+            <a href="../research.html">manuscripts currently under review</a>.
+            For now, the short version: if your DRL portfolio agent has only
+            ever seen one kind of market, treat any claim about its robustness
+            as provisional.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>

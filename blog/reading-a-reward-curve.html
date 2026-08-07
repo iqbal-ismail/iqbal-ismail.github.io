@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Reading a Reward Curve: What Six Months of Training Logs Taught Me | Iqbal
+      K I
+    </title>
+    <meta
+      name="description"
+      content="What a noisy, unglamorous training curve can tell you about an agent's policy — long before backtest metrics do."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Field Notes</p>
+            <h1>
+              Reading a Reward Curve: What Six Months of Training Logs Taught Me
+            </h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · August 2026 · 5 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            Every deep reinforcement learning paper eventually shows you the
+            same picture: a reward curve climbing, more or less, from
+            bottom-left to top-right. What the picture doesn't show is the
+            several hundred hours spent staring at the noisy, unglamorous
+            version of that curve while it was still being produced — the one
+            that looks less like progress and more like static with a faint
+            upward drift.
+          </p>
+
+          <p>
+            I've now spent enough time watching portfolio agents train that I've
+            started to develop opinions about what a reward curve is actually
+            telling me, as distinct from what I want it to be telling me. A few
+            of those opinions, for what they're worth.
+          </p>
+
+          <h2>The curve lies about convergence</h2>
+          <p>
+            A reward curve that flattens out looks like convergence. Sometimes
+            it is. More often, in my experience, it's the agent settling into a
+            locally stable policy that happens to perform acceptably across the
+            training distribution it's seen so far — which is a different claim
+            entirely. The tell is usually in the action distribution, not the
+            reward number: if allocation weights have also stopped moving,
+            that's a much stronger signal than the reward plateau alone.
+          </p>
+
+          <h2>Variance is information, not noise</h2>
+          <p>
+            It's tempting to smooth a reward curve heavily before looking at it
+            — moving averages, exponential smoothing, whatever removes the
+            jagged parts. I've started doing the opposite: keeping the raw,
+            high-variance version visible alongside the smoothed one. Sudden
+            spikes in variance during training often line up with the agent
+            encountering a genuinely different market regime in the replay
+            buffer for the first time. That moment is usually more interesting
+            than the eventual average.
+          </p>
+
+          <h2>Compare curves, not just endpoints</h2>
+          <p>
+            When I'm evaluating a design choice — a different reward shaping
+            term, a different state representation — I've learned not to trust
+            the final reward value alone. Two runs can converge to similar final
+            performance while taking completely different paths, and the path
+            tells you something about robustness that the endpoint doesn't. A
+            run that climbs steadily is, in my experience, more likely to
+            generalize than one that spikes early and holds on.
+          </p>
+
+          <blockquote>
+            The reward curve is the agent's résumé, not its transcript. It tells
+            you what happened, not why — and the why is usually where the useful
+            research question is hiding.
+          </blockquote>
+
+          <p>
+            None of this replaces proper out-of-sample evaluation, which is
+            where the real test happens. But training diagnostics are cheap,
+            immediate, and — if you're willing to read the messy version instead
+            of the pretty one — genuinely informative about whether an agent is
+            learning something durable or just fitting the run it happens to be
+            on.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>

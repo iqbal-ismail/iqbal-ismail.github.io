@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Why I Stopped Trusting Backtests (Mostly) | Iqbal K I</title>
+    <meta
+      name="description"
+      content="Backtests answer a narrower question than most of us pretend they do. Here's the checklist I now run before believing one."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Field Notes</p>
+            <h1>Why I Stopped Trusting Backtests (Mostly)</h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · June 2026 · 6 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            Every strategy looks good in the backtest where it was built. That's
+            not cynicism, it's close to a tautology — a backtest is, among other
+            things, a report on how well a strategy fits the data it was
+            designed or tuned against. The interesting question was never "does
+            this backtest look good," it's "how much of that good look survives
+            contact with data the strategy never got to see."
+          </p>
+
+          <p>
+            I don't think backtests are useless — they're the closest thing this
+            field has to a lab experiment. But I've become considerably more
+            careful about what I let a backtest convince me of. A short
+            checklist I now run before trusting one, mine included.
+          </p>
+
+          <h2>How many decisions were made looking at this window?</h2>
+          <p>
+            If a reward function, a feature set, or a hyperparameter was
+            adjusted after looking at performance on the test period — even
+            once, even informally — that period has been leaked into the model,
+            however indirectly. The honest fix is a true holdout that nobody,
+            including me, looks at until the model design is completely frozen.
+            It's an uncomfortable amount of discipline to maintain in practice.
+          </p>
+
+          <h2>What does the strategy do in the worst 5% of days?</h2>
+          <p>
+            Aggregate metrics — Sharpe ratio, cumulative return — average away
+            exactly the days that matter most for whether a strategy is usable.
+            I now look at the worst-decile drawdown days specifically, and ask
+            whether the strategy's behaviour on those days is something I could
+            defend to a risk committee, not just something that nets out
+            acceptably over the full period.
+          </p>
+
+          <h2>Would a naive baseline have done almost as well?</h2>
+          <p>
+            An uncomfortable number of DRL portfolio results, when compared
+            honestly against an equal-weight or minimum-variance baseline over
+            the same period, show a smaller edge than the headline metric
+            suggests. That's not a reason to abandon the approach — it's a
+            reason to report the baseline comparison every time, which I've made
+            a standing rule for my own work after being embarrassed by skipping
+            it early on.
+          </p>
+
+          <blockquote>
+            A backtest can tell you a strategy isn't obviously broken. It can't
+            tell you the strategy will work — that claim needs live or
+            out-of-sample evidence, and even then, only provisionally.
+          </blockquote>
+
+          <p>
+            None of this is a novel insight — quantitative finance has been
+            having this argument with itself for decades. But it's easy to
+            forget under deadline pressure, and I've found that writing the
+            checklist down somewhere I have to read again is more effective than
+            trusting myself to remember it.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>

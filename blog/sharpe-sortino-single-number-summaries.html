@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Sharpe Ratio, Sortino Ratio, and the Problem With Single-Number Summaries
+      | Iqbal K I
+    </title>
+    <meta
+      name="description"
+      content="Risk-adjusted return metrics are useful and dangerously easy to over-trust. A short field guide to what each one hides."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Market</p>
+            <h1>
+              Sharpe Ratio, Sortino Ratio, and the Problem With Single-Number
+              Summaries
+            </h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · May 2026 · 5 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            Ask for "the" performance metric of a strategy and someone will
+            usually hand you a Sharpe ratio. It's a reasonable default — return
+            per unit of volatility, easy to compute, easy to compare across
+            strategies. It's also a single number standing in for a return
+            distribution, and single numbers are always lossy summaries. The
+            question worth asking isn't "is Sharpe useful" — it clearly is — but
+            "what does this particular lossy summary throw away."
+          </p>
+
+          <h2>Sharpe penalizes upside volatility too</h2>
+          <p>
+            Standard deviation doesn't distinguish between a strategy that
+            spikes upward unpredictably and one that spikes downward
+            unpredictably — both count against it equally. For most investors,
+            the two aren't remotely equivalent. This is the whole motivation
+            behind the Sortino ratio, which only penalizes downside deviation.
+            In practice, a strategy with a mediocre Sharpe ratio and a strong
+            Sortino ratio is often a strategy with positively skewed returns —
+            worth a second look, not a pass.
+          </p>
+
+          <h2>Neither metric sees tail risk properly</h2>
+          <p>
+            Both ratios are built on variance-like measures, which means both
+            under-react to fat tails. A strategy that's stable 98% of the time
+            and catastrophic in the remaining 2% can post an excellent Sharpe
+            ratio right up until the tail event happens. This is precisely the
+            failure mode that measures like maximum drawdown and Conditional
+            Value-at-Risk are designed to catch, and why I never report a Sharpe
+            ratio without a drawdown figure sitting next to it.
+          </p>
+
+          <h2>The period you measure over is doing a lot of work</h2>
+          <p>
+            Sharpe and Sortino ratios are both period-dependent in ways that get
+            glossed over more than they should. A ratio computed over a calm
+            two-year window and one computed over a period spanning a volatility
+            shock are not comparable numbers, even for the identical strategy.
+            When I evaluate the regime-dependent agents from my published work,
+            I report these ratios separately by volatility regime for exactly
+            this reason — the blended number hides more than it reveals.
+          </p>
+
+          <blockquote>
+            A risk-adjusted return metric is a compression algorithm. Useful for
+            comparison, dangerous if you forget what got thrown away in the
+            compression.
+          </blockquote>
+
+          <p>
+            None of this is an argument against using these metrics — I use them
+            constantly. It's an argument for never using just one, and for
+            always asking what a metric was built to ignore before letting it
+            settle an argument.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>

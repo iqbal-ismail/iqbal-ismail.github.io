@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Mean-Variance Optimization Isn't Wrong, It's Just Incomplete | Iqbal K I
+    </title>
+    <meta
+      name="description"
+      content="Markowitz gets blamed for a lot that isn't really his fault. A defense, with caveats, of the framework everyone loves to outgrow."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-hero">
+          <div class="container">
+            <p class="eyebrow">Research</p>
+            <h1>
+              Mean-Variance Optimization Isn't Wrong, It's Just Incomplete
+            </h1>
+            <div class="post-byline">
+              <img src="../images/photo-icon.webp" alt="Iqbal K I" />
+              <span>Iqbal K I · February 2026 · 6 min read</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="prose">
+          <p>
+            It's become almost reflexive in machine-learning-adjacent finance
+            circles to open a paper by noting the limitations of Markowitz
+            mean-variance optimization before presenting something more
+            sophisticated. I've done it myself. Having spent a few years now
+            building the "something more sophisticated" side of that sentence, I
+            want to push back gently on how that framing is usually deployed.
+          </p>
+
+          <h2>The assumptions were always meant to be starting points</h2>
+          <p>
+            Mean-variance optimization assumes returns are well-characterized by
+            their first two moments and that the covariance structure is stable
+            enough to estimate and rely on. Those assumptions are frequently
+            violated in real markets — nobody serious disputes that. But
+            Markowitz's 1952 framework was never presented as a complete
+            description of how markets work; it was a formalization of a
+            trade-off that had previously only been reasoned about informally.
+            Judging it as though it claimed to be a final answer is judging it
+            against a standard it never set for itself.
+          </p>
+
+          <h2>What it got structurally right</h2>
+          <p>
+            The core insight — that diversification benefit depends on
+            covariance, not just individual asset risk, and that this creates an
+            efficient frontier rather than a single "best" portfolio — remains
+            correct as a structural claim, independent of whether variance is
+            the right risk measure or whether the covariance estimate is stable.
+            Deep reinforcement learning agents that learn to condition
+            allocation on cross-asset relationships are, in a real sense,
+            learning a generalization of the same underlying insight, just
+            without committing to a parametric form for it upfront.
+          </p>
+
+          <h2>Where the real gap is</h2>
+          <p>
+            The honest critique isn't that Markowitz was wrong about
+            diversification. It's that variance is an incomplete risk measure,
+            covariance estimates are unstable in practice, and the framework has
+            no native way to condition on regime. Those are exactly the gaps
+            that volatility-regime-aware and learned approaches are trying to
+            close — which makes them extensions of the mean-variance insight in
+            a meaningful sense, not replacements for it.
+          </p>
+
+          <blockquote>
+            Every model I've built since starts from the same question Markowitz
+            asked: how much am I actually being compensated for the risk I'm
+            taking. The answer has just gotten more complicated to compute.
+          </blockquote>
+
+          <p>
+            I don't think this is a controversial position among people who've
+            actually implemented both approaches. It's mostly a plea to stop
+            using "mean-variance is outdated" as a free rhetorical move in an
+            introduction, when the more precise and more interesting claim is
+            about which of its specific assumptions break down, and when.
+          </p>
+        </div>
+      </article>
+
+      <div class="container post-footer-nav">
+        <a class="section-link" href="index.html">← Back to all posts</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>
