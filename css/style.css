@@ -306,6 +306,8 @@ img { max-width: 100%; display: block; }
   line-height: 1.65;
   color: var(--text-muted);
   margin-bottom: 1.1em;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .hero-meta {
@@ -663,6 +665,8 @@ img { max-width: 100%; display: block; }
   font-size: .93rem;
   color: var(--text-muted);
   margin-bottom: 1em;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .doi-link {
@@ -726,7 +730,7 @@ img { max-width: 100%; display: block; }
 }
 .timeline-content h3 { font-size: 1.05rem; margin-bottom: .2em; }
 .timeline-org { color: var(--text-muted); font-style: italic; margin-bottom: .4em; font-size: .92rem; }
-.timeline-content p:last-child { margin-bottom: 0; font-size: .93rem; }
+.timeline-content p:last-child { margin-bottom: 0; font-size: .93rem; text-align: justify; hyphens: auto; }
 
 /* ---------- Skills ---------- */
 .skills-row {
@@ -907,7 +911,7 @@ img { max-width: 100%; display: block; }
   .pub-figure { max-height: 170px; }
   .blog-card-body { padding: 16px; }
   .contact-card { padding: 12px 18px; font-size: .88rem; }
-  .prose { padding: 32px 16px 56px; font-size: 1rem; }
+  .prose { padding: 32px 0 56px; font-size: 1rem; }
   .post-hero { padding: 40px 0 24px; }
   .cv-card { padding: 20px; }
   .mini-card, .resource-card { padding: 18px; }
@@ -1011,7 +1015,7 @@ img { max-width: 100%; display: block; }
 .post-hero .eyebrow { margin-bottom: 14px; }
 .post-hero h1 {
   font-size: clamp(2rem, 5vw, 2.6rem);
-  max-width: 22ch;
+  max-width: 68ch;
 }
 .post-byline {
   display: flex;
@@ -1031,8 +1035,7 @@ img { max-width: 100%; display: block; }
 
 .prose {
   max-width: 68ch;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 48px 0 80px;
   font-size: 1.05rem;
 }
 .prose h2 {
@@ -1043,7 +1046,7 @@ img { max-width: 100%; display: block; }
   font-size: 1.15rem;
   margin-top: 1.5em;
 }
-.prose p { color: var(--text); margin-bottom: 1.2em; }
+.prose p { color: var(--text); margin-bottom: 1.2em; text-align: justify; hyphens: auto; }
 .prose ul, .prose ol { color: var(--text); margin: 0 0 1.2em; padding-left: 1.4em; }
 .prose li { margin-bottom: .5em; }
 .prose blockquote {
