@@ -1,3 +1,9 @@
+// One script.js is loaded on every page (as js/script.js from the root
+// pages, ../js/script.js from blog/*.html). Each block below is guarded by
+// checking that its page-specific element exists (e.g. `if (aboutNav)`),
+// so it's safe to add new blocks here — they simply do nothing on pages
+// that don't have the relevant markup. Follow that pattern for new features.
+
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const primaryNav = document.getElementById('primaryNav');
@@ -55,4 +61,143 @@ if (aboutNav) {
 
   const initialTarget = window.location.hash.replace('#', '');
   if (initialTarget) showPanel(initialTarget, true);
+}
+
+// Shared filter/sort behaviour for a grid of cards (blog index, research
+// publications). `filters` is a list of { select, test(card, value) } pairs;
+// `sortFns` maps a sort-select value to a comparator. To wire up a new
+// filterable list elsewhere on the site: give its container an id, give
+// each item a data-* attribute to filter/sort on, add the matching
+// <select>/<button> markup (reuse the .filter-bar/.filter-group CSS), and
+// call this function once for that container — see the two call sites
+// below for the pattern.
+function setupCardFilterSort({ grid, cardSelector, filters, sortSelect, sortFns, defaultSort, resetBtn, emptyState }) {
+  const cards = Array.from(grid.querySelectorAll(cardSelector));
+
+  const applySort = () => {
+    const sortFn = sortFns[sortSelect ? sortSelect.value : defaultSort];
+    if (!sortFn) return;
+    [...cards].sort(sortFn).forEach((card) => grid.appendChild(card));
+  };
+
+  const applyFilters = () => {
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const matches = filters.every(({ select, test }) => select.value === 'all' || test(card, select.value));
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+    if (emptyState) emptyState.hidden = visibleCount !== 0;
+  };
+
+  const update = () => {
+    applySort();
+    applyFilters();
+  };
+
+  filters.forEach(({ select }) => select.addEventListener('change', update));
+  if (sortSelect) sortSelect.addEventListener('change', update);
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      filters.forEach(({ select }) => { select.value = 'all'; });
+      if (sortSelect) sortSelect.value = defaultSort;
+      update();
+    });
+  }
+
+  update();
+  return cards;
+}
+
+// Populate a <select>'s options from a set of values found in the DOM, so
+// year filters stay correct as new posts/publications get added.
+function populateYearOptions(select, years) {
+  Array.from(new Set(years))
+    .sort((a, b) => b.localeCompare(a))
+    .forEach((year) => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      select.appendChild(option);
+    });
+}
+
+// Blog index — filter by type/year/month, sort by date
+const blogGrid = document.getElementById('blogGrid');
+if (blogGrid) {
+  const typeSelect = document.getElementById('blogFilterType');
+  const yearSelect = document.getElementById('blogFilterYear');
+  const monthSelect = document.getElementById('blogFilterMonth');
+
+  populateYearOptions(
+    yearSelect,
+    Array.from(blogGrid.querySelectorAll('.blog-card')).map((card) => card.dataset.date.slice(0, 4))
+  );
+
+  setupCardFilterSort({
+    grid: blogGrid,
+    cardSelector: '.blog-card',
+    filters: [
+      { select: typeSelect, test: (card, value) => card.dataset.type === value },
+      { select: yearSelect, test: (card, value) => card.dataset.date.slice(0, 4) === value },
+      { select: monthSelect, test: (card, value) => String(Number(card.dataset.date.split('-')[1])) === value },
+    ],
+    sortSelect: document.getElementById('blogSort'),
+    sortFns: {
+      newest: (a, b) => b.dataset.date.localeCompare(a.dataset.date),
+      oldest: (a, b) => a.dataset.date.localeCompare(b.dataset.date),
+    },
+    defaultSort: 'newest',
+    resetBtn: document.getElementById('blogResetFilters'),
+    emptyState: document.getElementById('blogEmptyState'),
+  });
+}
+
+// Research page — filter publications and conference presentations by
+// year (shared Year/Sort controls), sort by year
+const pubList = document.getElementById('pubList');
+const confList = document.getElementById('confList');
+if (pubList || confList) {
+  const yearSelect = document.getElementById('pubFilterYear');
+  const sortSelect = document.getElementById('pubSort');
+  const resetBtn = document.getElementById('pubResetFilters');
+
+  const byYearFilter = { select: yearSelect, test: (card, value) => card.dataset.year === value };
+  const byYearSortFns = {
+    newest: (a, b) => b.dataset.year.localeCompare(a.dataset.year),
+    oldest: (a, b) => a.dataset.year.localeCompare(b.dataset.year),
+  };
+
+  const allYears = [
+    ...(pubList ? Array.from(pubList.querySelectorAll('.pub-card')).map((card) => card.dataset.year) : []),
+    ...(confList ? Array.from(confList.querySelectorAll('li')).map((li) => li.dataset.year) : []),
+  ];
+  populateYearOptions(yearSelect, allYears);
+
+  if (pubList) {
+    setupCardFilterSort({
+      grid: pubList,
+      cardSelector: '.pub-card',
+      filters: [byYearFilter],
+      sortSelect,
+      sortFns: byYearSortFns,
+      defaultSort: 'newest',
+      resetBtn,
+      emptyState: document.getElementById('pubEmptyState'),
+    });
+  }
+
+  if (confList) {
+    setupCardFilterSort({
+      grid: confList,
+      cardSelector: 'li',
+      filters: [byYearFilter],
+      sortSelect,
+      sortFns: byYearSortFns,
+      defaultSort: 'newest',
+      resetBtn,
+      emptyState: document.getElementById('confEmptyState'),
+    });
+  }
 }

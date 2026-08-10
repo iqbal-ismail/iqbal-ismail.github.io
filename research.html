@@ -56,6 +56,9 @@
   <section class="section" id="research">
     <div class="container">
       <h2 class="section-title">Research Interests</h2>
+      <!-- One .mini-card per interest. To add/remove one, copy a block below
+           (and the matching block on index.html's "Research Interests" bar,
+           which repeats the same four items as a homepage teaser). -->
       <div class="card-grid four">
         <div class="mini-card">
           <h3>Financial Time Series</h3>
@@ -80,9 +83,47 @@
   <section class="section section-alt" id="publications">
     <div class="container">
       <h2 class="section-title">Publications</h2>
-      <div class="pub-list">
 
-        <article class="pub-card">
+      <div class="filter-bar" role="group" aria-label="Filter and sort publications and conference presentations">
+        <div class="filter-group">
+          <label for="pubFilterYear">Year</label>
+          <select id="pubFilterYear">
+            <option value="all">All years</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="pubSort">Sort by</label>
+          <select id="pubSort">
+            <option value="newest">Year, newest first</option>
+            <option value="oldest">Year, oldest first</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn-outline btn-sm filter-reset" id="pubResetFilters">Reset</button>
+      </div>
+
+      <p class="filter-empty-state" id="pubEmptyState" hidden>No publications match this filter.</p>
+
+      <!--
+        HOW TO ADD A NEW PUBLICATION (see also README.md § "Add a publication"):
+        1. Copy one <article class="pub-card"> block below and fill in its
+           figure, tags, title, authors, abstract, and DOI link.
+        2. Set data-year="YYYY" on the <article> — this drives the Year filter
+           and sort above (populated automatically at runtime, no other wiring
+           needed here).
+        3. Add a matching cover image to images/ (e.g. article-3.webp) — the
+           .pub-figure <img> uses object-fit: cover, so roughly landscape/
+           square images work best.
+        4. Also add the citation to the "Research Publications" list on
+           about.html (#publications, a plain APA-style <ol class="citation-list">)
+           — that list is separate and not auto-generated from this one.
+        5. If you write a blog post about the paper, link the paper's title/
+           mention to this same DOI (see blog/README.md).
+      -->
+      <div class="pub-list" id="pubList">
+
+        <article class="pub-card" data-year="2026">
           <div class="pub-figure">
             <img src="images/article-2.webp" alt="Figure illustrating the Volatility Regime-Dependent Portfolio Optimization study" loading="lazy">
           </div>
@@ -106,7 +147,7 @@
           </div>
         </article>
 
-        <article class="pub-card">
+        <article class="pub-card" data-year="2025">
           <div class="pub-figure">
             <img src="images/article-1.webp" alt="Figure illustrating the Dynamic Portfolio Optimization study" loading="lazy">
           </div>
@@ -133,12 +174,20 @@
       </div>
 
       <h3 class="subsection-title">Conference Presentations</h3>
-      <ul class="plain-list">
-        <li>
+      <!--
+        HOW TO ADD A CONFERENCE PRESENTATION:
+        Copy one <li> below. Set data-year="YYYY" (drives the same Year
+        filter/sort as Publications above, since both lists share the
+        filter bar). .plain-title is the paper/talk title; .plain-meta is
+        "Conference name — Year" (or similar) shown to the right.
+      -->
+      <p class="filter-empty-state" id="confEmptyState" hidden>No conference presentations match this filter.</p>
+      <ul class="plain-list" id="confList">
+        <li data-year="2024">
           <span class="plain-title">Artificial Intelligence in Stock Market Forecasting: Exploring the Long Short-Term Memory Model for Stock Prediction</span>
           <span class="plain-meta">India Management Research Conference (IMRC 2024), IIM Ahmedabad — 2024</span>
         </li>
-        <li>
+        <li data-year="2023">
           <span class="plain-title">ESG Consideration in Investment Decision: Investigating Its Impact on Investment Returns</span>
           <span class="plain-meta">2nd International Management Conference on Industry 5.0, VIT Bhopal University — 2023</span>
         </li>

@@ -9,8 +9,15 @@
     </title>
     <meta
       name="description"
-      content="A plain-language walkthrough of what deep reinforcement learning agents actually learn when managing a portfolio."
+      content="Why deep reinforcement learning might change portfolio management — and why mean-variance optimization isn't going anywhere just yet."
     />
+    <!-- Metadata read by scripts/build-blog-index.js to auto-generate the
+         card on blog/index.html — edit these, not the index page. -->
+    <meta name="post:title" content="Why Deep Reinforcement Learning Might Change Portfolio Management" />
+    <meta name="post:type" content="Research" />
+    <meta name="post:date" content="2026-02-17" />
+    <meta name="post:readtime" content="7 min read" />
+    <meta name="post:excerpt" content="What DRL agents actually learn, and where they still fall short of a human portfolio manager." />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
@@ -65,7 +72,7 @@
             </h1>
             <div class="post-byline">
               <img src="../images/photo-icon.webp" alt="Iqbal K I" />
-              <span>Iqbal K I · August 2026 · 6 min read</span>
+              <span>Iqbal K I · 17 February 2026 · 7 min read</span>
             </div>
           </div>
         </header>
@@ -73,103 +80,286 @@
         <div class="container">
         <div class="prose">
           <p>
-            Ask a traditional portfolio model how much to allocate to equities
-            versus bonds, and it will give you an answer built on assumptions:
-            that returns follow a particular distribution, that risk is well
-            approximated by variance, that the relationships between assets
-            today look like the relationships between assets yesterday.
-            Markowitz's mean-variance framework and its descendants have been
-            enormously useful precisely because they make these assumptions
-            explicit. But markets don't always cooperate with them.
+            Ask a finance student how to build a portfolio, and chances are
+            you'll hear some version of the same answer that Harry Markowitz
+            gave us in 1952: estimate the expected return and risk of each
+            asset, understand how the assets move together, and find the
+            combination that gives you the best return for a given level of
+            risk.
           </p>
 
+          <p>It's elegant. It's foundational. And it has served portfolio theory remarkably well.</p>
+
+          <p>But there is one quiet limitation: <strong>it doesn't learn.</strong></p>
+
           <p>
-            Deep reinforcement learning (DRL) takes a different starting point.
-            Instead of specifying a model of returns and solving for an optimal
-            allocation, you give an agent a reward signal — portfolio return,
-            adjusted for risk — and let it learn a policy through repeated
-            interaction with market data. No distributional assumptions, no
-            fixed rebalancing rule. Just a neural network updating its behaviour
-            based on what worked and what didn't.
+            Mean-variance optimization treats each portfolio decision as a new
+            optimization problem. When you rebalance, you feed the model
+            updated inputs and solve the problem again. Yesterday's decision
+            doesn't teach the model anything about tomorrow's decision.
           </p>
 
-          <h2>What the agent actually learns</h2>
+          <p>In that sense, it's a snapshot rather than a strategy that develops through experience.</p>
+
           <p>
-            In the work I've published on this — most recently on
-            <a
-              href="https://doi.org/10.1007/s10690-026-09629-8"
-              target="_blank"
-              rel="noopener"
-              >volatility regime-dependent portfolio optimization</a
-            >
-            — the interesting result isn't that a DRL agent can allocate a
-            portfolio. It's <em>how</em> its behaviour shifts once volatility
-            regimes are made explicit in the state it observes. A well-trained
-            agent doesn't apply one static strategy; it learns something closer
-            to a family of strategies, switched in and out as market conditions
-            change.
-          </p>
-          <p>
-            That's not unlike what a good discretionary portfolio manager does
-            intuitively — de-risking into turbulence, leaning in during calm,
-            stable periods. The difference is that the agent's version of that
-            intuition is learned directly from historical price action, and can
-            be tested, measured, and interrogated in a way that human intuition
-            can't be.
+            Deep reinforcement learning approaches the problem from a very
+            different direction. Instead of explicitly solving for an optimal
+            portfolio using a predefined mathematical relationship, it tries
+            to <strong>learn a policy</strong> — a rule for deciding what to
+            do next — from repeated interaction with an environment.
           </p>
 
-          <h2>Where it still falls short</h2>
+          <p>And that difference is what makes it interesting.</p>
+
+          <h2>What does "learning" actually mean here?</h2>
           <p>
-            None of this means DRL agents are ready to replace human portfolio
-            managers, and I don't think that's the right framing anyway. A few
-            honest limitations, from the empirical work in
-            <a
-              href="https://doi.org/10.3905/jfds.2025.1.210"
-              target="_blank"
-              rel="noopener"
-              >Indian capital markets</a
-            >
-            and elsewhere:
+            Strip away the jargon for a moment, and a deep reinforcement
+            learning portfolio agent works a little like learning to navigate
+            a maze through trial and error.
           </p>
+
           <ul>
             <li>
-              <strong>Regime shifts the agent hasn't seen before.</strong> A
-              policy trained on historical data can struggle when markets enter
-              genuinely novel conditions — the thing backtests are structurally
-              bad at capturing.
+              It observes a <strong>state</strong> — perhaps recent prices,
+              returns, volatility, technical indicators, or information about
+              the current portfolio.
             </li>
             <li>
-              <strong>Interpretability.</strong> It's one thing to observe that
-              an agent de-risks before a drawdown; it's another to explain
-              <em>why</em> in terms a risk committee would accept.
+              It takes an <strong>action</strong> — in portfolio management,
+              this usually means changing the allocation across assets.
             </li>
             <li>
-              <strong>Transaction costs and capacity.</strong> Agents optimized
-              in simulation don't automatically account for the market impact of
-              actually executing their trades at scale.
+              It receives a <strong>reward</strong>, typically related to
+              portfolio performance and sometimes adjusted to account for
+              risk or trading costs.
             </li>
           </ul>
 
           <p>
-            These aren't reasons to dismiss the approach — they're the actual
-            research agenda. Comparing agents across market-cap segments and
-            emerging-market conditions (the subject of two manuscripts currently
-            under review) is, in part, an attempt to understand exactly where
-            these limitations bite hardest.
+            The process is repeated over and over using historical data.
+            Through those interactions, the agent gradually updates its
+            policy to favour actions that have produced better outcomes.
           </p>
 
-          <blockquote>
-            The point of this research isn't to prove machines can out-trade
-            humans. It's to understand, precisely, what a learned policy
-            captures that a fixed rule doesn't — and what it still misses.
-          </blockquote>
+          <p>Nobody explicitly tells it:</p>
+          <blockquote>Sell when volatility increases.</blockquote>
 
           <p>
-            If you want the full technical detail, both papers are linked above
-            with their DOIs, and the rest of my publications are on the
-            <a href="../research.html">Research page</a>. I'll be writing more
-            here as the market-cap and emerging-market comparison work moves
-            through review.
+            Instead, if reducing exposure during certain conditions
+            repeatedly produces better rewards, the learning process can
+            eventually lead the agent toward behaviour that reflects that
+            relationship.
+          </p>
+
+          <p>That is one of the genuinely interesting differences from traditional portfolio models.</p>
+
+          <p>
+            The agent isn't handed a complete model of how markets work. It
+            is given an objective, an environment, and a feedback mechanism,
+            and it learns a decision-making policy through experience.
+          </p>
+
+          <p>
+            In principle, this gives DRL the ability to capture
+            relationships that can be difficult to express neatly in a
+            conventional formula. Volatility, momentum, correlations, market
+            conditions, and other features may interact in complicated ways.
+            Rather than specifying exactly how those variables should
+            interact beforehand, a neural network can learn a representation
+            of those relationships from the data.
+          </p>
+
+          <p>Of course, <strong>"can learn" is doing a lot of work in that sentence.</strong></p>
+
+          <p>Whether it actually learns something useful is an empirical question.</p>
+
+          <h2>Where could it actually help?</h2>
+          <p>The potential advantage becomes more interesting when markets stop behaving the way we expect them to.</p>
+
+          <p>
+            Many traditional portfolio models rely, explicitly or
+            implicitly, on assumptions about the behaviour of returns,
+            risks, and correlations. Those relationships can become much
+            less reliable when markets move from a relatively calm period
+            into a period of extreme volatility or when correlations
+            suddenly rise across assets.
+          </p>
+
+          <p>Think about what happens during a major market selloff.</p>
+
+          <p>
+            Assets that appeared reasonably diversified under normal
+            conditions can suddenly start moving together. Volatility
+            increases. Correlations change. The relationships that looked
+            stable yesterday may not look particularly stable anymore.
+          </p>
+
+          <p>
+            A DRL agent trained across different market conditions has the
+            potential to learn different responses to different states of
+            the market. Rather than applying exactly the same decision rule
+            regardless of the environment, it may learn to alter its
+            portfolio behaviour when the conditions it observes change.
+          </p>
+
+          <p>But there is an important distinction here.</p>
+
+          <blockquote>Adaptability is not the same thing as successful adaptation.</blockquote>
+
+          <p>
+            An agent might appear to behave differently across market
+            conditions simply because it has learned patterns that happen to
+            work in the training data. The real question is whether that
+            behaviour continues to be useful when the agent encounters data
+            it has not seen before.
+          </p>
+
+          <p>That question is at the centre of one of my own research projects.</p>
+
+          <p>
+            In
+            <em
+              >Volatility Regime-Dependent Portfolio Optimization: Empirical
+              Analysis of Deep Reinforcement Learning Agents</em
+            >, I examine how different deep reinforcement learning agents
+            perform across different volatility conditions and whether their
+            portfolio behaviour changes as market conditions change.
+          </p>
+
+          <p>The interesting part isn't simply asking which algorithm produces the highest return.</p>
+
+          <p>It is asking a more fundamental question:</p>
+
+          <p><strong>What does a portfolio agent actually learn when the market environment changes?</strong></p>
+
+          <p>
+            Does it genuinely respond to different volatility regimes? Or
+            does it simply discover a strategy that performs reasonably well
+            on average and continue doing roughly the same thing regardless
+            of the underlying conditions?
+          </p>
+
+          <p>The answer, as is often the case with financial machine learning, is more nuanced than either extreme.</p>
+
+          <h2>Where does it fall short?</h2>
+          <p>This is also where I think it is important not to oversell reinforcement learning.</p>
+
+          <p>
+            DRL can sound almost magical when described only in terms of
+            "learning from experience." But an agent doesn't suddenly
+            acquire financial intuition just because it uses a neural
+            network.
+          </p>
+
+          <ul>
+            <li>It doesn't know that a central bank meeting is happening tomorrow.</li>
+            <li>It doesn't understand that a geopolitical event could fundamentally change the market.</li>
+            <li>It doesn't know that a particular regulatory announcement might make yesterday's relationships irrelevant.</li>
+          </ul>
+
+          <p>
+            A human portfolio manager can bring contextual knowledge and
+            judgment to a genuinely unfamiliar situation. A DRL agent trained
+            on historical market data cannot do that in the same way.
+          </p>
+
+          <p>Its adaptability is constrained by the experiences available to it.</p>
+
+          <p>There is another problem that is arguably even more dangerous: <strong>overfitting</strong>.</p>
+
+          <p>An agent can produce an impressive backtest. High returns. Strong Sharpe ratios. Controlled drawdowns. Consistent performance.</p>
+
+          <p>And it can still be completely wrong.</p>
+
+          <p>
+            The agent may have discovered a pattern that existed in that
+            particular period of history but has no reason to persist in the
+            future.
+          </p>
+
+          <p>
+            This is the classic problem of backtesting, but deep learning
+            makes it harder to see. Instead of having a small number of
+            transparent rules that you can inspect, you may have millions of
+            learned parameters interacting in ways that are much harder to
+            interpret.
+          </p>
+
+          <p>A beautiful backtest can therefore be evidence of a useful strategy.</p>
+          <p>It can also be evidence that your model has become extremely good at remembering the past.</p>
+          <p>Those are not the same thing.</p>
+
+          <h2>So, does DRL actually "change" portfolio management?</h2>
+          <p>I don't think the answer is that deep reinforcement learning replaces traditional portfolio theory.</p>
+
+          <p>
+            Mean-variance optimization isn't going anywhere. And there are
+            good reasons for that. It is interpretable, mathematically
+            grounded, well understood, and has decades of research behind
+            it.
+          </p>
+
+          <p>What DRL changes is <strong>the class of strategies we can explore</strong>.</p>
+
+          <p>Instead of asking only:</p>
+          <blockquote>What is the optimal portfolio given these estimates of return, risk, and covariance?</blockquote>
+
+          <p>we can also ask:</p>
+          <blockquote>What decision-making policy should an agent learn when it repeatedly observes the market, takes portfolio actions, and receives feedback from the outcomes?</blockquote>
+
+          <p>That's a fundamentally different question.</p>
+
+          <p>
+            It opens the possibility of portfolio strategies that respond to
+            changing conditions rather than applying one fixed allocation
+            rule everywhere. It also shifts some of the burden of specifying
+            relationships in advance from the researcher to the learning
+            process.
+          </p>
+
+          <p>But that doesn't make the problem disappear.</p>
+          <p>It changes the problem.</p>
+
+          <p>Now we have to ask:</p>
+          <ul>
+            <li>whether the agent has learned something meaningful,</li>
+            <li>whether that behaviour survives outside the training period,</li>
+            <li>whether transaction costs make the strategy feasible,</li>
+            <li>whether the results are robust to different market conditions, and</li>
+            <li>whether the apparent adaptability is actually genuine.</li>
+          </ul>
+
+          <p>And ultimately, whether we would trust the strategy with real money.</p>
+
+          <p>That last question is probably the most important one.</p>
+
+          <p>A strategy that looks impressive inside a backtest is interesting.</p>
+          <p>A strategy that continues to work when the market does something it hasn't seen before is much more interesting.</p>
+          <p>That is where I think the real research challenge lies.</p>
+
+          <p>
+            My paper,
+            <a
+              href="https://doi.org/10.1007/s10690-026-09629-8"
+              target="_blank"
+              rel="noopener"
+              ><strong
+                >Volatility Regime-Dependent Portfolio Optimization:
+                Empirical Analysis of Deep Reinforcement Learning
+                Agents</strong
+              ></a
+            >, explores this question through the performance and behaviour
+            of deep reinforcement learning agents across different
+            volatility regimes.
+          </p>
+
+          <p>The aim isn't to prove that DRL is the future of portfolio management.</p>
+
+          <blockquote>It's to understand <strong>when it works, why it works, and what it actually learns along the way.</strong></blockquote>
+
+          <p>
+            The rest of my publications are on the
+            <a href="../research.html">Research page</a>.
           </p>
         </div>
         </div>

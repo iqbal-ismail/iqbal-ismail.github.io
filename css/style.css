@@ -2,6 +2,17 @@
    Iqbal K I — Academic Portfolio
    Palette: ~70% white, ~25% dark navy, ~5% orange (accents only)
    Fonts: Playfair Display (titles), Inter (body)
+
+   One shared stylesheet for every page (linked as css/style.css from the
+   root pages, ../css/style.css from blog/*.html). All colors, spacing,
+   and radii are design tokens below — change a look site-wide by editing
+   a variable here rather than hunting for hardcoded values.
+
+   Layout is almost entirely a handful of reusable card/list patterns —
+   .mini-card, .resource-card, .pub-card, .plain-list, .timeline-item,
+   .blog-card — reused across pages rather than page-specific classes.
+   See the root README.md for where each pattern is used and how to add
+   an entry to it.
 ------------------------------------------------------------- */
 
 :root {
@@ -746,36 +757,6 @@ img { max-width: 100%; display: block; }
 .timeline-org { color: var(--text-muted); font-style: italic; margin-bottom: .4em; font-size: .92rem; }
 .timeline-content p:last-child { margin-bottom: 0; font-size: .93rem; text-align: justify; hyphens: auto; }
 
-/* ---------- Contact ---------- */
-.contact-inner { text-align: center; }
-.contact-lede {
-  max-width: 56ch;
-  margin: 0 auto 32px;
-  color: var(--text-muted);
-}
-.contact-grid {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-.contact-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 14px 24px;
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  box-shadow: var(--shadow);
-}
-.contact-card svg { width: 18px; height: 18px; fill: var(--accent); }
-.contact-card:hover { border-color: var(--accent); }
-.contact-card-static { cursor: default; }
-
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--navy);
@@ -901,22 +882,12 @@ img { max-width: 100%; display: block; }
   .pub-body { padding: 18px; }
   .pub-figure { max-height: 170px; }
   .blog-card-body { padding: 16px; }
-  .contact-card { padding: 12px 18px; font-size: .88rem; }
   .prose { padding: 32px 0 56px; font-size: 1rem; }
   .post-hero { padding: 40px 0 24px; }
   .mini-card, .resource-card { padding: 18px; }
 }
 
 /* ---------- Section intros with link-out ---------- */
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 20px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-.section-head .section-title { margin-bottom: 0; }
 .section-link {
   font-size: .9rem;
   font-weight: 600;
@@ -949,6 +920,15 @@ img { max-width: 100%; display: block; }
 }
 .blog-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
+/* js/script.js hides filtered-out cards by setting the "hidden" attribute.
+   Browsers only default hidden elements to display:none via a low-priority
+   UA rule, which loses to our own "display: flex/grid" rules above — these
+   overrides are what actually make hidden filtering work. Needed for every
+   card type the filter/sort system touches. */
+.blog-card[hidden] { display: none; }
+.pub-card[hidden] { display: none; }
+.plain-list li[hidden] { display: none; }
+
 .blog-card-cover {
   aspect-ratio: 16/10;
   background: linear-gradient(135deg, rgba(15, 31, 61, 0.9), var(--navy-2));
@@ -958,6 +938,7 @@ img { max-width: 100%; display: block; }
 }
 .blog-card-cover svg { width: 40%; height: 40%; opacity: .85; }
 .blog-card-cover svg path { fill: var(--accent) !important; }
+.blog-card-cover img { width: 100%; height: 100%; object-fit: cover; }
 
 .blog-card-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 
@@ -995,6 +976,72 @@ img { max-width: 100%; display: block; }
 }
 @media (max-width: 600px) {
   .blog-grid { grid-template-columns: 1fr; }
+}
+
+/* Filter & sort controls (shared: blog index, research publications).
+   Purely presentational — the actual filtering/sorting/year-population
+   logic lives in js/script.js's setupCardFilterSort() helper, which reads
+   these <select> elements by id. Adding a new filter dropdown means adding
+   both the markup here (or wherever it's used) and a matching entry in
+   that page's setupCardFilterSort() call. */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 18px 20px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: .74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.filter-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  font-size: .88rem;
+  color: var(--text);
+  background: var(--card-bg) url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22%235c6779%22 d=%22M7 10l5 5 5-5z%22/></svg>') no-repeat right 10px center;
+  background-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 32px 9px 12px;
+  min-width: 150px;
+  cursor: pointer;
+}
+.filter-group select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.filter-bar .filter-reset {
+  margin-left: auto;
+  align-self: center;
+}
+
+.filter-empty-state {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 32px 0;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-group select { width: 100%; }
+  .filter-bar .filter-reset { margin-left: 0; align-self: flex-start; }
 }
 
 /* ---------- Blog post page ---------- */
@@ -1123,11 +1170,6 @@ img { max-width: 100%; display: block; }
 .about-panel { display: none; }
 .about-panel.active { display: block; }
 .about-panel .section-title { margin-bottom: 28px; }
-
-.about-placeholder {
-  color: var(--text-muted);
-  font-style: italic;
-}
 
 @media (max-width: 800px) {
   .about-layout { grid-template-columns: minmax(0, 1fr); }

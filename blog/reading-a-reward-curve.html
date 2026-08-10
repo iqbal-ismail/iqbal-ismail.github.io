@@ -9,8 +9,15 @@
     </title>
     <meta
       name="description"
-      content="What a noisy, unglamorous training curve can tell you about an agent's policy — long before backtest metrics do."
+      content="Two training runs that lied to me — one that looked perfect and wasn't, one that looked broken and wasn't — and what I check now instead of just watching the curve go up."
     />
+    <!-- Metadata read by scripts/build-blog-index.js to auto-generate the
+         card on blog/index.html — edit these, not the index page. -->
+    <meta name="post:title" content="Reading a Reward Curve: What Six Months of Training Logs Taught Me" />
+    <meta name="post:type" content="Field Notes" />
+    <meta name="post:date" content="2026-03-03" />
+    <meta name="post:readtime" content="6 min read" />
+    <meta name="post:excerpt" content="What a noisy training curve tells you about a policy — long before backtest metrics do." />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
@@ -65,7 +72,7 @@
             </h1>
             <div class="post-byline">
               <img src="../images/photo-icon.webp" alt="Iqbal K I" />
-              <span>Iqbal K I · August 2026 · 5 min read</span>
+              <span>Iqbal K I · 3 March 2026 · 6 min read</span>
             </div>
           </div>
         </header>
@@ -73,70 +80,224 @@
         <div class="container">
         <div class="prose">
           <p>
-            Every deep reinforcement learning paper eventually shows you the
-            same picture: a reward curve climbing, more or less, from
-            bottom-left to top-right. What the picture doesn't show is the
-            several hundred hours spent staring at the noisy, unglamorous
-            version of that curve while it was still being produced — the one
-            that looks less like progress and more like static with a faint
-            upward drift.
+            For the first couple of months of training my portfolio agents,
+            I judged almost everything by one question:
+            <strong>Is the reward curve going up?</strong>
           </p>
 
           <p>
-            I've now spent enough time watching portfolio agents train that I've
-            started to develop opinions about what a reward curve is actually
-            telling me, as distinct from what I want it to be telling me. A few
-            of those opinions, for what they're worth.
+            If it was rising, I assumed things were working. If it flattened
+            out, I assumed the agent had stopped learning. If it dropped,
+            something was probably wrong.
           </p>
 
-          <h2>The curve lies about convergence</h2>
-          <p>
-            A reward curve that flattens out looks like convergence. Sometimes
-            it is. More often, in my experience, it's the agent settling into a
-            locally stable policy that happens to perform acceptably across the
-            training distribution it's seen so far — which is a different claim
-            entirely. The tell is usually in the action distribution, not the
-            reward number: if allocation weights have also stopped moving,
-            that's a much stronger signal than the reward plateau alone.
-          </p>
+          <p>It was a reasonable way to start looking at training. It was also, as I eventually learned, far too simplistic.</p>
 
-          <h2>Variance is information, not noise</h2>
-          <p>
-            It's tempting to smooth a reward curve heavily before looking at it
-            — moving averages, exponential smoothing, whatever removes the
-            jagged parts. I've started doing the opposite: keeping the raw,
-            high-variance version visible alongside the smoothed one. Sudden
-            spikes in variance during training often line up with the agent
-            encountering a genuinely different market regime in the replay
-            buffer for the first time. That moment is usually more interesting
-            than the eventual average.
-          </p>
-
-          <h2>Compare curves, not just endpoints</h2>
-          <p>
-            When I'm evaluating a design choice — a different reward shaping
-            term, a different state representation — I've learned not to trust
-            the final reward value alone. Two runs can converge to similar final
-            performance while taking completely different paths, and the path
-            tells you something about robustness that the endpoint doesn't. A
-            run that climbs steadily is, in my experience, more likely to
-            generalize than one that spikes early and holds on.
-          </p>
-
-          <blockquote>
-            The reward curve is the agent's résumé, not its transcript. It tells
-            you what happened, not why — and the why is usually where the useful
-            research question is hiding.
-          </blockquote>
+          <h2>What a reward curve actually tells you</h2>
+          <p>If you don't work with machine learning, here's the basic idea.</p>
 
           <p>
-            None of this replaces proper out-of-sample evaluation, which is
-            where the real test happens. But training diagnostics are cheap,
-            immediate, and — if you're willing to read the messy version instead
-            of the pretty one — genuinely informative about whether an agent is
-            learning something durable or just fitting the run it happens to be
-            on.
+            In reinforcement learning, an agent makes decisions and receives
+            a reward based on the outcome of those decisions. In a portfolio
+            management setting, that might mean changing the allocation
+            across assets, holding the existing portfolio, or rebalancing the
+            weights.
           </p>
+
+          <p>
+            As training progresses, we can track the rewards the agent
+            receives and plot them over time. The resulting
+            <strong>reward curve</strong> gives us a visual sense of how the
+            learning process is progressing.
+          </p>
+
+          <p>
+            The textbook picture is fairly intuitive: the curve rises during
+            the early stages of training, then gradually levels off as the
+            agent learns a policy and further improvements become smaller.
+          </p>
+
+          <ul>
+            <li>A rising curve looks like learning.</li>
+            <li>A stable curve looks like convergence.</li>
+            <li>A declining curve looks like a problem.</li>
+          </ul>
+
+          <p>That's the theory.</p>
+          <p>Then I started paying attention to what happened beyond the curve.</p>
+
+          <h2>The curve that looked perfect — and wasn't</h2>
+          <p>About three months into my experiments, I had a training run that looked almost textbook.</p>
+
+          <p>
+            The reward climbed quickly at the beginning, the rate of
+            improvement gradually slowed, and eventually the curve settled
+            into a relatively high, stable plateau.
+          </p>
+
+          <p>It looked exactly like what you would want to see from a successful training run.</p>
+          <p>I was pleased with it.</p>
+          <p>For about a day.</p>
+          <p>Then I ran the backtest on a period that contained a sharp increase in market volatility.</p>
+          <p>The strategy struggled.</p>
+          <p>What had happened?</p>
+
+          <p>
+            The agent had learned a policy that worked very well under the
+            conditions it had predominantly encountered during training.
+            Those conditions were relatively calm, low-volatility periods.
+            When the market environment changed, the policy did not
+            generalize nearly as well as the reward curve had led me to
+            believe.
+          </p>
+
+          <p>The important point is that <strong>the reward curve itself wasn't wrong</strong>.</p>
+
+          <p>
+            The agent really had improved on the training data. The problem
+            was that I had been interpreting that improvement as evidence
+            that the learned policy would generalize to conditions outside
+            the training experience.
+          </p>
+
+          <p>Those are two very different things.</p>
+          <p>That was my first real lesson:</p>
+
+          <blockquote>A high and stable reward curve can tell you that an agent has learned. It cannot, by itself, tell you that it has learned something that generalizes.</blockquote>
+
+          <h2>The curve that looked broken — and wasn't</h2>
+          <p>A few months later, I made the opposite mistake.</p>
+          <p>This time, the reward curve looked terrible.</p>
+
+          <p>
+            It was noisy and jagged, with no obvious upward trend. Every so
+            often, the reward would drop sharply before recovering. My
+            immediate reaction was the obvious one:
+            <strong>something must be wrong.</strong>
+          </p>
+
+          <p>Before stopping the run, though, I decided to look at what was happening underneath the aggregate reward.</p>
+          <p>The answer turned out to be quite different.</p>
+
+          <p>
+            Those sharp drops were occurring around periods where the agent
+            was being exposed to substantially more volatile market
+            conditions. These regimes had deliberately been included in the
+            training process, and lower rewards during difficult market
+            conditions were not necessarily evidence of a broken training
+            process.
+          </p>
+
+          <p>
+            Once I separated the rewards by market regime instead of looking
+            at one blended curve, the picture became much clearer.
+          </p>
+
+          <p>What initially looked like instability was actually telling me something about how the agent was responding to different environments.</p>
+
+          <p>The curve wasn't broken.</p>
+          <p><strong>My interpretation of the curve was.</strong></p>
+          <p>That became the second lesson — and probably the more important one:</p>
+
+          <blockquote>A single aggregated reward curve can hide almost as much as it reveals.</blockquote>
+
+          <p>
+            If an agent is learning across very different market
+            environments, the same average reward can be produced by very
+            different underlying behaviours.
+          </p>
+
+          <h2>What I look at now</h2>
+          <p>Those two experiences changed how I read training logs.</p>
+          <p>I still look at the reward curve. I just don't treat it as the final answer anymore.</p>
+          <p>Here are some of the things I check now.</p>
+
+          <ul>
+            <li>
+              <strong>First, I break the reward down by market regime.</strong>
+              Instead of looking only at one aggregate training curve, I
+              examine how the agent behaves under different volatility or
+              market conditions. An apparently stable average can hide
+              substantial differences between regimes.
+            </li>
+            <li>
+              <strong>Second, I look at the composition of the training data.</strong>
+              Before training even begins, I want to know what kind of
+              market environments the agent is actually seeing. How much of
+              the training period is relatively calm? How much represents
+              stressed or highly volatile conditions? An agent cannot learn
+              how to respond to environments that it rarely encounters.
+            </li>
+            <li>
+              <strong>Third, I care much more about genuinely unseen data.</strong>
+              A separate test period is more informative than another
+              attractive-looking training curve. In financial applications
+              especially, I prefer a chronological out-of-sample period that
+              the agent has never encountered during training over a
+              randomly shuffled validation split. The real question isn't
+              whether the agent can perform well on the market it has
+              already seen. It's whether the learned strategy still behaves
+              sensibly when the market changes.
+            </li>
+            <li>
+              <strong>And finally, I stopped assuming that smooth is always good.</strong>
+              A smooth reward curve can mean that the agent has converged to
+              a robust policy. It can also mean that the training
+              environment simply wasn't challenging enough.
+            </li>
+          </ul>
+
+          <p>
+            So now, when I see a smooth curve, my first question isn't
+            <em>"Is this good?"</em>
+          </p>
+          <p>It's:</p>
+          <p><strong>"Why is it smooth?"</strong></p>
+
+          <h2>Why this matters beyond reinforcement learning</h2>
+          <p>This lesson isn't really unique to deep reinforcement learning.</p>
+          <p>It isn't even unique to machine learning.</p>
+
+          <p>
+            Quantitative researchers have been dealing with the same problem
+            for decades. A backtest can produce an impressive performance
+            number while telling you very little about how a strategy will
+            behave when the market moves outside the conditions that
+            produced that number.
+          </p>
+
+          <p>The danger isn't necessarily that the metric is wrong.</p>
+          <p>Sometimes the metric is perfectly correct.</p>
+          <p>The danger is that <strong>the metric is measuring something that isn't the thing you actually care about.</strong></p>
+
+          <p>
+            For a portfolio agent, a high training reward is interesting.
+            But what I ultimately care about is whether the strategy can
+            navigate different market environments without falling apart.
+          </p>
+
+          <p>That distinction changed how I think about training.</p>
+
+          <p>
+            A reward curve is useful. It can tell you whether something is
+            happening during learning, whether the agent appears to be
+            converging, and whether a training run deserves further
+            investigation.
+          </p>
+
+          <p>But it isn't a certificate of a good strategy.</p>
+          <p>In the end, <strong>a reward curve is a backtest with extra steps.</strong></p>
+          <p>And like any backtest, it deserves a healthy amount of skepticism.</p>
+
+          <p>
+            That is also why I became interested in studying portfolio
+            performance across different volatility regimes. My research on
+            <strong>volatility regime-dependent portfolio optimization</strong>
+            takes that idea further by examining how deep reinforcement
+            learning agents behave when market conditions change.
+          </p>
+
+          <p>You can read the research <a href="../research.html">here</a>.</p>
         </div>
         </div>
       </article>

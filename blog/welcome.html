@@ -8,6 +8,13 @@
       name="description"
       content="Why I'm writing alongside the PhD, and what to expect from this blog."
     />
+    <!-- Metadata read by scripts/build-blog-index.js to auto-generate the
+         card on blog/index.html — edit these, not the index page. -->
+    <meta name="post:title" content="Welcome — What This Blog Is For" />
+    <meta name="post:type" content="Notes" />
+    <meta name="post:date" content="2026-01-10" />
+    <meta name="post:readtime" content="3 min read" />
+    <meta name="post:excerpt" content="Why I'm writing alongside the PhD, and what to expect from this space." />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
@@ -60,7 +67,7 @@
             <h1>Welcome — What This Blog Is For</h1>
             <div class="post-byline">
               <img src="../images/photo-icon.webp" alt="Iqbal K I" />
-              <span>Iqbal K I · August 2026 · 3 min read</span>
+              <span>Iqbal K I · 10 January 2026 · 3 min read</span>
             </div>
           </div>
         </header>
@@ -68,51 +75,75 @@
         <div class="container">
         <div class="prose">
           <p>
-            I'm starting this blog for a simple reason: most of what I actually
-            learn while researching deep reinforcement learning for portfolio
-            management never makes it into a paper. Papers report results — the
-            final model, the final metric, the clean story. They don't have room
-            for the three approaches that failed first, the dataset quirk that
-            cost a week, or the intuition that only clicked after staring at a
-            reward curve for too long.
+            There's a lot that happens during research that never makes it
+            into a paper.
           </p>
 
-          <p>This blog is where that goes.</p>
+          <p>
+            A journal article usually gives you the final model, the final
+            results, and a reasonably clean story of how you got there. What
+            it rarely shows are the three approaches that failed before the
+            one that worked, the strange dataset issue that cost you an
+            entire week, or the moment when something finally made sense
+            after staring at a reward curve for far too long.
+          </p>
 
-          <h2>What to expect</h2>
-          <p>Roughly, three kinds of posts:</p>
+          <p>Those experiences are messy, but they're often where the real learning happens.</p>
+
+          <p>That's what I want this blog to capture.</p>
+
+          <p>
+            I work at the intersection of finance, machine learning, and
+            reinforcement learning, with a particular interest in how these
+            methods can be used for portfolio management. Through this blog,
+            I'll write about the things I'm learning along the way —
+            including the things that work, the things that don't, and the
+            things that make me stop and question my assumptions.
+          </p>
+
+          <h2>What you'll find here</h2>
+          <p>I'll mainly write about three things:</p>
           <ul>
             <li>
-              <strong>Research notes</strong> — plain-language walkthroughs of
-              ideas from my published work and works in progress, written for
-              readers who know finance or ML but not necessarily both.
+              <strong>Research notes</strong> — plain-language explanations
+              of ideas from my research and ongoing work. I'll try to make
+              them accessible to someone who understands finance but not
+              necessarily machine learning, or machine learning but not
+              finance.
             </li>
             <li>
-              <strong>Market intuition</strong> — short pieces connecting what
-              an agent learns in simulation to how markets actually behave.
+              <strong>Market intuition</strong> — thoughts on what models and
+              agents learn from financial markets, and how those learned
+              behaviours compare with what we know about how markets
+              actually work. Sometimes the two line up. Sometimes they
+              really don't.
             </li>
             <li>
-              <strong>Field notes</strong> — the practical, unglamorous side of
-              doctoral research: tooling, data pipelines, and the occasional
-              rant about backtesting pitfalls.
+              <strong>Field notes</strong> — the practical side of doing
+              research — working with financial data, building experiments,
+              debugging models, dealing with imperfect datasets, and
+              occasionally discovering that the backtest you trusted was
+              lying to you.
             </li>
           </ul>
 
           <p>
-            If you're a fellow researcher, a student exploring quantitative
-            finance, or just someone curious about what happens when you point a
-            reinforcement learning agent at a stock market, this is for you.
+            If you're a researcher, a student exploring quantitative
+            finance, or simply curious about what happens when you give a
+            reinforcement learning agent a stock market and ask it to manage
+            a portfolio, I hope you'll find something useful here.
           </p>
 
-          <blockquote>
-            The goal isn't to make the work sound simpler than it is — it's to
-            make it legible.
-          </blockquote>
+          <p>
+            I'm not trying to make the research sound simpler than it is.
+            I'm trying to make it easier to understand — including the parts
+            that usually get left out.
+          </p>
 
           <p>
-            You can browse the full list of publications on the
-            <a href="../research.html">Research page</a>, or start with the
-            first proper post:
+            You can find my publications on the
+            <a href="../research.html">Research page</a>, or jump straight
+            into the first proper post:
             <a href="why-deep-rl-for-portfolios.html"
               >Why Deep Reinforcement Learning Might Change Portfolio
               Management</a

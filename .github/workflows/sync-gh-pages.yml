@@ -1,18 +1,55 @@
-name: Sync gh-pages with main
+# Runs on every push to main. Two jobs in one, in order:
+#   1. Regenerate blog/index.html from the blog/*.html posts' metadata
+#      (scripts/build-blog-index.js) and commit the result back to main,
+#      so you never have to hand-edit the blog index yourself.
+#   2. Fast-forward the gh-pages branch to main, which is what GitHub Pages
+#      actually serves (see CNAME / repo Settings > Pages).
+#
+# The [skip ci] in the commit message stops this workflow from re-triggering
+# itself when it pushes step 1's commit (GitHub also doesn't re-trigger
+# workflows for pushes made with the default GITHUB_TOKEN, but [skip ci] is
+# a belt-and-braces second guard in case that ever changes).
+#
+# gh-pages should only ever be updated by this workflow — if it ever gets a
+# commit of its own (e.g. edited directly on GitHub), the fast-forward push
+# in step 2 will fail loudly rather than overwrite it, which is the signal
+# to go reconcile the two branches by hand.
+
+name: Build blog index and sync gh-pages
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch: {} # lets you re-run this manually from the Actions tab
 
 jobs:
-  sync:
+  build-and-sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # full history, needed for the gh-pages fast-forward below
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Regenerate blog index from post files
+        run: node scripts/build-blog-index.js
+
+      - name: Commit regenerated blog index (if changed)
+        run: |
+          if ! git diff --quiet -- blog/index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add blog/index.html
+            git commit -m "Regenerate blog index [skip ci]"
+            git push origin HEAD:main
+          else
+            echo "blog/index.html already up to date, nothing to commit."
+          fi
+
       - name: Fast-forward gh-pages to main
         run: git push origin HEAD:gh-pages

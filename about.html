@@ -54,6 +54,14 @@
   <section class="section about-section">
     <div class="container about-layout">
 
+      <!--
+        This sidebar + panel pair is a JS-driven tab switcher (see
+        js/script.js, "About page — sidebar tab switching"). To add a new
+        section: add a nav <a data-target="X"> link here AND a matching
+        <section id="X" class="about-panel"> below — the two are linked
+        purely by that id/data-target string, and JS shows/hides panels by
+        toggling the "active" class. Order here also sets the tab order.
+      -->
       <aside class="about-sidebar">
         <nav class="about-nav" id="aboutNav" aria-label="About sections">
           <a href="#qualifications" class="about-nav-link active" data-target="qualifications">Qualifications</a>
@@ -69,6 +77,7 @@
 
         <section id="qualifications" class="about-panel active">
           <h2 class="section-title">Qualifications</h2>
+          <!-- One .timeline-item per degree, newest first. Copy a block to add one. -->
           <div class="timeline">
             <div class="timeline-item">
               <div class="timeline-content">
@@ -104,6 +113,9 @@
           </div>
 
           <h3 class="subsection-title">Eligibility Tests &amp; Fellowships</h3>
+          <!-- .card-grid + .mini-card is the reusable "small tile" pattern used
+               throughout this page (and on research.html) — copy a .mini-card
+               to add an entry. "two"/"four" on card-grid sets the column count. -->
           <div class="card-grid two">
             <div class="mini-card">
               <h3>UGC NET &amp; JRF — Commerce</h3>
@@ -128,6 +140,8 @@
           </div>
 
           <h3 class="subsection-title">Workshops &amp; Faculty Development Programs</h3>
+          <!-- .plain-list: a title + right-aligned meta line per <li>. Same
+               pattern used for Conference Presentations on research.html. -->
           <ul class="plain-list">
             <li>
               <span class="plain-title">International Faculty Development Program on Financial Analytics Using Python</span>
@@ -163,6 +177,12 @@
         <section id="publications" class="about-panel">
           <h2 class="section-title">Research Publications</h2>
 
+          <!--
+            Plain APA-style citation per <li>. This list is separate from
+            (and not auto-generated from) the publication cards on
+            research.html — when you add a new paper there, add its
+            citation here too. See root README.md § "Add a publication".
+          -->
           <ol class="citation-list">
             <li>Iqbal, K. I., &amp; Ramachandran, R. (2026). Volatility regime-dependent portfolio optimization: Empirical analysis of deep reinforcement learning agents. <em>Asia Pacific Financial Markets</em>. <a href="https://doi.org/10.1007/s10690-026-09629-8" target="_blank" rel="noopener">https://doi.org/10.1007/s10690-026-09629-8</a></li>
             <li>Iqbal, K. I., &amp; Ramachandran, R. (2025). Dynamic portfolio optimization with deep reinforcement learning: Empirical insights from Indian capital markets. <em>The Journal of Financial Data Science</em>, <em>8</em>(1), 115–129. <a href="https://doi.org/10.3905/jfds.2025.1.210" target="_blank" rel="noopener">https://doi.org/10.3905/jfds.2025.1.210</a></li>
