@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.iqbalismail.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/about.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/research.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/resources.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/blog/index.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/blog/welcome.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/blog/why-deep-rl-for-portfolios.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.iqbalismail.com/blog/reading-a-reward-curve.html</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>
