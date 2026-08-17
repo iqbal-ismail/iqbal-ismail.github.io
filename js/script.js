@@ -52,8 +52,8 @@ if (aboutNav) {
       const rect = item.getBoundingClientRect();
       const dist = Math.abs(rect.top + rect.height / 2 - centerY);
       const norm = Math.min(dist / (containerRect.height / 2), 1);
-      item.style.opacity = String(1 - norm * 0.7);
-      item.style.transform = `scale(${(1 - norm * 0.14).toFixed(3)})`;
+      item.style.opacity = String(1 - norm * 0.55);
+      item.style.transform = `scale(${(1 - norm * 0.1).toFixed(3)})`;
       item.classList.toggle('is-center', dist < rect.height / 2);
       item.setAttribute('aria-selected', dist < rect.height / 2 ? 'true' : 'false');
     });

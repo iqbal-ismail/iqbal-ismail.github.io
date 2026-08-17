@@ -886,7 +886,6 @@ img { max-width: 100%; display: block; }
   .resource-grid { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; gap: 6px; }
 
-  .featured-post { grid-template-columns: 1fr; }
   .post-hero h1 { font-size: 1.8rem; }
 }
 
@@ -990,8 +989,21 @@ img { max-width: 100%; display: block; }
 @media (max-width: 900px) {
   .blog-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 760px) {
+  /* These have to live after the unconditional .featured-post rules above —
+     same class, same specificity, so whichever is later in the file wins
+     regardless of the media query. Keeping every mobile override for this
+     component in one place (here) avoids that trap. */
+  .featured-post { grid-template-columns: 1fr; }
+  .featured-post .blog-card-cover { aspect-ratio: 16/10; height: auto; }
+  .featured-post .blog-card-body { padding: 20px; }
+  .featured-post h3 { font-size: 1.2rem; }
+}
 @media (max-width: 600px) {
   .blog-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .featured-post .blog-card-body { padding: 16px; }
 }
 
 /* Filter & sort controls (shared: blog index, research publications).
@@ -1190,7 +1202,8 @@ img { max-width: 100%; display: block; }
 /* Mobile-only replacement for the sidebar tabs — a vertical picker wheel.
    Scrolling brings a section to the centre row; neighbouring options stay
    visible but shrink and fade above/below it, like a native date picker. */
-.about-wheel { display: none; }
+.about-wheel-frame { display: none; }
+.about-wheel-label { display: none; }
 
 @media (max-width: 800px) {
   .about-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
@@ -1207,62 +1220,85 @@ img { max-width: 100%; display: block; }
 
   .about-nav { display: none; }
 
-  .about-wheel {
+  .about-wheel-label {
+    display: block;
+    font-size: .76rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 8px;
+  }
+
+  /* The frame is the fixed "window" — it does not scroll, so the highlight
+     band pinned to it stays put while .about-wheel (the actual scroller,
+     nested inside) moves the text underneath it. */
+  .about-wheel-frame {
     display: block;
     position: relative;
-    height: 168px;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    height: 196px;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    mask-image: linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent);
+    overflow: hidden;
+  }
+
+  /* Highlight band marking the centre "selection" row — 71px = (196 - 54) / 2,
+     the same math the track padding below uses to let the first/last item
+     reach centre. */
+  .about-wheel-frame::before {
+    content: '';
+    position: absolute;
+    top: 71px;
+    left: 14px;
+    right: 14px;
+    height: 54px;
+    background: rgba(242, 103, 15, .1);
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .about-wheel {
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 74%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 74%, transparent);
   }
   .about-wheel::-webkit-scrollbar { display: none; }
 
-  /* Guide rules marking the centre "selection" band — 61px = (168 - 46) / 2,
-     the same math the track padding below uses to let the first/last item
-     reach centre. */
-  .about-wheel::before,
-  .about-wheel::after {
-    content: '';
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    height: 1px;
-    background: var(--border);
-    pointer-events: none;
-  }
-  .about-wheel::before { top: 61px; }
-  .about-wheel::after { bottom: 61px; }
-
-  .about-wheel-track { padding: 61px 0; }
+  .about-wheel-track { padding: 71px 0; }
 
   .about-wheel-item {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 46px;
-    padding: 0 22px;
+    height: 54px;
+    padding: 0 18px;
     text-align: center;
-    line-height: 1.25;
+    line-height: 1.2;
     scroll-snap-align: center;
+    scroll-snap-stop: always;
     background: none;
     border: none;
     font: inherit;
-    font-size: .84rem;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-muted);
-    opacity: .4;
+    opacity: .45;
     cursor: pointer;
   }
 
   .about-wheel-item.is-center {
     color: var(--navy);
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 1.12rem;
   }
 }
