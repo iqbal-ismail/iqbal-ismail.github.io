@@ -30,6 +30,8 @@ if (aboutNav) {
   const navScroller = aboutNav.closest('.about-sidebar') || aboutNav;
   const navLinks = aboutNav.querySelectorAll('.about-nav-link');
   const panels = document.querySelectorAll('.about-panel');
+  const aboutWheel = document.getElementById('aboutWheel');
+  const wheelItems = aboutWheel ? aboutWheel.querySelectorAll('.about-wheel-item') : [];
 
   const centerActiveLink = (link) => {
     const scrollerRect = navScroller.getBoundingClientRect();
@@ -39,16 +41,43 @@ if (aboutNav) {
     navScroller.scrollTo({ left: targetLeft, behavior: 'smooth' });
   };
 
-  const showPanel = (target, centerLink) => {
+  // Fades/shrinks each wheel option by its distance from the wheel's
+  // vertical centre, and flags whichever one is currently in that centre
+  // band so it can be styled as the "selected" row.
+  const updateWheelVisual = () => {
+    if (!aboutWheel) return;
+    const containerRect = aboutWheel.getBoundingClientRect();
+    const centerY = containerRect.top + containerRect.height / 2;
+    wheelItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const dist = Math.abs(rect.top + rect.height / 2 - centerY);
+      const norm = Math.min(dist / (containerRect.height / 2), 1);
+      item.style.opacity = String(1 - norm * 0.7);
+      item.style.transform = `scale(${(1 - norm * 0.14).toFixed(3)})`;
+      item.classList.toggle('is-center', dist < rect.height / 2);
+      item.setAttribute('aria-selected', dist < rect.height / 2 ? 'true' : 'false');
+    });
+  };
+
+  const centerWheelItem = (target, smooth) => {
+    if (!aboutWheel) return;
+    const item = aboutWheel.querySelector(`.about-wheel-item[data-target="${target}"]`);
+    if (!item) return;
+    const top = item.offsetTop - aboutWheel.clientHeight / 2 + item.offsetHeight / 2;
+    aboutWheel.scrollTo({ top, behavior: smooth ? 'smooth' : 'auto' });
+  };
+
+  const showPanel = (target, moveIndicator) => {
     if (!document.getElementById(target)) return;
     navLinks.forEach((link) => {
       const isActive = link.dataset.target === target;
       link.classList.toggle('active', isActive);
-      if (isActive && centerLink) centerActiveLink(link);
+      if (isActive && moveIndicator) centerActiveLink(link);
     });
     panels.forEach((panel) => {
       panel.classList.toggle('active', panel.id === target);
     });
+    if (moveIndicator) centerWheelItem(target, true);
   };
 
   navLinks.forEach((link) => {
@@ -58,6 +87,33 @@ if (aboutNav) {
       history.replaceState(null, '', `#${link.dataset.target}`);
     });
   });
+
+  if (aboutWheel) {
+    wheelItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        showPanel(item.dataset.target, true);
+        history.replaceState(null, '', `#${item.dataset.target}`);
+      });
+    });
+
+    // While scrolling, just update the fade/scale live. Once scrolling has
+    // been idle for a moment, treat whichever item settled in the centre as
+    // the selection and swap the panel.
+    let wheelSettleTimer = null;
+    aboutWheel.addEventListener('scroll', () => {
+      updateWheelVisual();
+      if (wheelSettleTimer) clearTimeout(wheelSettleTimer);
+      wheelSettleTimer = setTimeout(() => {
+        const centered = aboutWheel.querySelector('.about-wheel-item.is-center');
+        if (centered) {
+          showPanel(centered.dataset.target, false);
+          history.replaceState(null, '', `#${centered.dataset.target}`);
+        }
+      }, 120);
+    }, { passive: true });
+
+    updateWheelVisual();
+  }
 
   const initialTarget = window.location.hash.replace('#', '');
   if (initialTarget) showPanel(initialTarget, true);

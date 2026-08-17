@@ -1187,21 +1187,82 @@ img { max-width: 100%; display: block; }
 .about-panel.active { display: block; }
 .about-panel .section-title { margin-bottom: 28px; }
 
+/* Mobile-only replacement for the sidebar tabs — a vertical picker wheel.
+   Scrolling brings a section to the centre row; neighbouring options stay
+   visible but shrink and fade above/below it, like a native date picker. */
+.about-wheel { display: none; }
+
 @media (max-width: 800px) {
-  .about-layout { grid-template-columns: minmax(0, 1fr); }
+  .about-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+
   .about-sidebar {
-    position: static;
-    overflow-x: auto;
+    position: sticky;
+    top: 76px;
+    z-index: 90;
+    background: var(--bg);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 14px 0;
+  }
+
+  .about-nav { display: none; }
+
+  .about-wheel {
+    display: block;
+    position: relative;
+    height: 168px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+    scrollbar-width: none;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    mask-image: linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 32%, #000 68%, transparent);
   }
-  .about-nav {
-    flex-direction: row;
+  .about-wheel::-webkit-scrollbar { display: none; }
+
+  /* Guide rules marking the centre "selection" band — 61px = (168 - 46) / 2,
+     the same math the track padding below uses to let the first/last item
+     reach centre. */
+  .about-wheel::before,
+  .about-wheel::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: var(--border);
+    pointer-events: none;
   }
-  .about-nav-link {
-    white-space: nowrap;
-    border-left: none;
-    border-bottom: 3px solid transparent;
+  .about-wheel::before { top: 61px; }
+  .about-wheel::after { bottom: 61px; }
+
+  .about-wheel-track { padding: 61px 0; }
+
+  .about-wheel-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 46px;
+    padding: 0 22px;
+    text-align: center;
+    line-height: 1.25;
+    scroll-snap-align: center;
+    background: none;
+    border: none;
+    font: inherit;
+    font-size: .84rem;
+    color: var(--text-muted);
+    opacity: .4;
+    cursor: pointer;
   }
-  .about-nav-link.active { border-left: none; border-bottom-color: var(--accent); }
+
+  .about-wheel-item.is-center {
+    color: var(--navy);
+    font-weight: 700;
+  }
 }

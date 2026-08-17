@@ -96,10 +96,11 @@ uses one of two repeating patterns:
 - **`.card-grid` + `.mini-card`** (Eligibility Tests, Reviewer, Memberships)
   — copy a `.mini-card` for a new entry.
 
-To add a whole new section: add a sidebar `<a data-target="X">` link *and*
-a matching `<section id="X" class="about-panel">` — the two are linked only
-by that shared id string (see the comment above the sidebar nav in the
-file).
+To add a whole new section: add a sidebar `<a data-target="X">` link, a
+matching `<button data-target="X">` in the `#aboutWheel` picker (the mobile
+stand-in for the sidebar), *and* a matching `<section id="X"
+class="about-panel">` — all three are linked only by that shared id string
+(see the comment above the sidebar nav in the file).
 
 ### Edit the homepage
 

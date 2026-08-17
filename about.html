@@ -74,10 +74,13 @@
           <!--
         This sidebar + panel pair is a JS-driven tab switcher (see
         js/script.js, "About page — sidebar tab switching"). To add a new
-        section: add a nav <a data-target="X"> link here AND a matching
-        <section id="X" class="about-panel"> below — the two are linked
-        purely by that id/data-target string, and JS shows/hides panels by
-        toggling the "active" class. Order here also sets the tab order.
+        section: add a nav <a data-target="X"> link here, a matching
+        <button data-target="X"> in the #aboutWheel below (a scrolling
+        picker used on mobile in place of the sidebar), AND a matching
+        <section id="X" class="about-panel"> further down — all three are
+        linked purely by that id/data-target string, and JS shows/hides
+        panels by toggling the "active" class. Order here also sets the tab
+        order.
       -->
           <aside class="about-sidebar">
             <nav class="about-nav" id="aboutNav" aria-label="About sections">
@@ -118,6 +121,66 @@
                 >Professional Memberships</a
               >
             </nav>
+            <div class="about-wheel" id="aboutWheel" role="listbox" aria-label="About sections">
+              <div class="about-wheel-track" id="aboutWheelTrack">
+                <button
+                  type="button"
+                  class="about-wheel-item is-center"
+                  data-target="qualifications"
+                  role="option"
+                  aria-selected="true"
+                  >Qualifications</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="publications"
+                  role="option"
+                  aria-selected="false"
+                  >Research Publications</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="conferences"
+                  role="option"
+                  aria-selected="false"
+                  >Conferences</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="certifications"
+                  role="option"
+                  aria-selected="false"
+                  >Certifications &amp; Workshops</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="teaching"
+                  role="option"
+                  aria-selected="false"
+                  >Teaching Experience</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="reviewer"
+                  role="option"
+                  aria-selected="false"
+                  >Reviewer</button
+                >
+                <button
+                  type="button"
+                  class="about-wheel-item"
+                  data-target="memberships"
+                  role="option"
+                  aria-selected="false"
+                  >Professional Memberships</button
+                >
+              </div>
+            </div>
           </aside>
 
           <div class="about-content">
