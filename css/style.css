@@ -704,6 +704,22 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
 }
 
+/* .numbered modifier: auto-numbers .plain-list items (e.g. Conferences),
+   without affecting other .plain-list uses (e.g. Workshops). */
+.plain-list.numbered { counter-reset: plain-num; }
+.plain-list.numbered li {
+  counter-increment: plain-num;
+  position: relative;
+  padding-left: 30px;
+}
+.plain-list.numbered li::before {
+  content: counter(plain-num) ".";
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--accent);
+}
+
 /* ---------- Citation list (APA-style, numbered) ---------- */
 .citation-list {
   list-style: none;

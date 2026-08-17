@@ -1,191 +1,282 @@
 ﻿<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Iqbal K I (Iqbal Ismail)</title>
-<meta name="description" content="Notes on quantitative finance, deep reinforcement learning, and portfolio management from Iqbal K I (Iqbal Ismail).">
-<link rel="canonical" href="https://www.iqbalismail.com/blog/index.html">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Iqbal K I (Iqbal Ismail)</title>
+    <meta
+      name="description"
+      content="Notes on quantitative finance, deep reinforcement learning, and portfolio management from Iqbal K I (Iqbal Ismail)."
+    />
+    <link rel="canonical" href="https://www.iqbalismail.com/blog/index.html" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-<a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="../index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">IK</span>
+          <span class="brand-text">
+            <span class="brand-name">Iqbal K I</span>
+            <span class="brand-tagline">Ph.D. Candidate, Finance</span>
+          </span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primaryNav">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../about.html" class="nav-link">About</a>
+          <a href="../research.html" class="nav-link">Research</a>
+          <a href="index.html" class="nav-link active">Blog</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="mailto:iqbal.nochayil@gmail.com" class="nav-link nav-cta"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </header>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="../index.html" class="brand">
-      <span class="brand-mark" aria-hidden="true">IK</span>
-      <span class="brand-text">
-        <span class="brand-name">Iqbal K I</span>
-        <span class="brand-tagline">Ph.D. Candidate, Finance</span>
-      </span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="primary-nav" id="primaryNav">
-      <a href="../index.html" class="nav-link">Home</a>
-      <a href="../about.html" class="nav-link">About</a>
-      <a href="../research.html" class="nav-link">Research</a>
-      <a href="index.html" class="nav-link active">Blog</a>
-      <a href="../resources.html" class="nav-link">Resources</a>
-      <a href="mailto:iqbal.nochayil@gmail.com" class="nav-link nav-cta">Contact</a>
-    </nav>
-  </div>
-</header>
+    <main id="main">
+      <section class="hero" style="padding: 56px 0 20px">
+        <div class="container">
+          <p class="eyebrow">Blog</p>
+          <h1 style="font-size: clamp(2rem, 4vw, 2.75rem)">
+            Notes on markets, models &amp; research
+          </h1>
+          <p class="hero-lede">
+            Writing alongside the research journery — research notes, explainers
+            on deep reinforcement learning and portfolio management, and the
+            occasional detour into whatever I'm reading.
+          </p>
+        </div>
+      </section>
 
-<main id="main">
-
-  <section class="hero" style="padding:56px 0 20px;">
-    <div class="container">
-      <p class="eyebrow">Blog</p>
-      <h1 style="font-size:clamp(2rem,4vw,2.75rem);">Notes on markets, models &amp; research</h1>
-      <p class="hero-lede">
-        Writing alongside the Ph.D. — research notes, explainers on deep
-        reinforcement learning and portfolio management, and the occasional
-        detour into whatever I'm reading.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-
-      <!-- Featured / most recent post — auto-generated by scripts/build-blog-index.js
+      <section class="section">
+        <div class="container">
+          <!-- Featured / most recent post — auto-generated by scripts/build-blog-index.js
            from the post files' <meta name="post:*"> tags. Do not edit by hand;
            add a new post file (with its post: meta tags) instead. -->
-      <!-- BLOG_FEATURED:START -->
-      <a class="blog-card featured-post" href="reading-a-reward-curve.html">
-        <div class="blog-card-cover">
-          <img src="../images/blog_thumbs/03-03-26.webp" alt="Reading a Reward Curve: What Six Months of Training Logs Taught Me" loading="lazy">
-        </div>
-        <div class="blog-card-body">
-          <div class="blog-meta"><span class="tag">Field Notes</span><span>3 March 2026 · 6 min read</span></div>
-          <h3>Reading a Reward Curve: What Six Months of Training Logs Taught Me</h3>
-          <p>What a noisy training curve tells you about a policy — long before backtest metrics do.</p>
-          <span class="blog-read-more">Read post →</span>
-        </div>
-      </a>
-      <!-- BLOG_FEATURED:END -->
+          <!-- BLOG_FEATURED:START -->
+          <a class="blog-card featured-post" href="reading-a-reward-curve.html">
+            <div class="blog-card-cover">
+              <img
+                src="../images/blog_thumbs/03-03-26.webp"
+                alt="Reading a Reward Curve: What Six Months of Training Logs Taught Me"
+                loading="lazy"
+              />
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-meta">
+                <span class="tag">Field Notes</span
+                ><span>3 March 2026 · 6 min read</span>
+              </div>
+              <h3>
+                Reading a Reward Curve: What Six Months of Training Logs Taught
+                Me
+              </h3>
+              <p>
+                What a noisy training curve tells you about a policy — long
+                before backtest metrics do.
+              </p>
+              <span class="blog-read-more">Read post →</span>
+            </div>
+          </a>
+          <!-- BLOG_FEATURED:END -->
 
-      <h2 class="section-title">All posts</h2>
+          <h2 class="section-title">All posts</h2>
 
-      <div class="filter-bar" role="group" aria-label="Filter and sort posts">
-        <div class="filter-group">
-          <label for="blogFilterType">Type</label>
-          <select id="blogFilterType">
-            <option value="all">All types</option>
-            <option value="Notes">Notes</option>
-            <option value="Research">Research</option>
-            <option value="Field Notes">Field Notes</option>
-            <option value="Paper Breakdowns">Paper Breakdowns</option>
-            <option value="Tooling &amp; Reproducibility">Tooling &amp; Reproducibility</option>
-            <option value="Career Notes">Career Notes</option>
-            <option value="Data Diaries">Data Diaries</option>
-            <option value="Explainers">Explainers</option>
-            <option value="Commentary">Commentary</option>
-          </select>
+          <div
+            class="filter-bar"
+            role="group"
+            aria-label="Filter and sort posts"
+          >
+            <div class="filter-group">
+              <label for="blogFilterType">Type</label>
+              <select id="blogFilterType">
+                <option value="all">All types</option>
+                <option value="Notes">Notes</option>
+                <option value="Research">Research</option>
+                <option value="Field Notes">Field Notes</option>
+                <option value="Paper Breakdowns">Paper Breakdowns</option>
+                <option value="Tooling &amp; Reproducibility">
+                  Tooling &amp; Reproducibility
+                </option>
+                <option value="Career Notes">Career Notes</option>
+                <option value="Data Diaries">Data Diaries</option>
+                <option value="Explainers">Explainers</option>
+                <option value="Commentary">Commentary</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="blogFilterYear">Year</label>
+              <select id="blogFilterYear">
+                <option value="all">All years</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="blogFilterMonth">Month</label>
+              <select id="blogFilterMonth">
+                <option value="all">All months</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="blogSort">Sort by</label>
+              <select id="blogSort">
+                <option value="newest">Date, newest first</option>
+                <option value="oldest">Date, oldest first</option>
+              </select>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-outline btn-sm filter-reset"
+              id="blogResetFilters"
+            >
+              Reset
+            </button>
+          </div>
+
+          <p class="filter-empty-state" id="blogEmptyState" hidden>
+            No posts match these filters.
+          </p>
+
+          <div class="blog-grid" id="blogGrid">
+            <!-- BLOG_GRID:START -->
+            <a
+              class="blog-card"
+              href="reading-a-reward-curve.html"
+              data-type="Field Notes"
+              data-date="2026-03-03"
+            >
+              <div class="blog-card-cover">
+                <img
+                  src="../images/blog_thumbs/03-03-26.webp"
+                  alt="Reading a Reward Curve: What Six Months of Training Logs Taught Me"
+                  loading="lazy"
+                />
+              </div>
+              <div class="blog-card-body">
+                <div class="blog-meta">
+                  <span class="tag">Field Notes</span><span>Mar 2026</span>
+                </div>
+                <h3>
+                  Reading a Reward Curve: What Six Months of Training Logs
+                  Taught Me
+                </h3>
+                <p>
+                  What a noisy training curve tells you about a policy — long
+                  before backtest metrics do.
+                </p>
+                <span class="blog-read-more">Read post →</span>
+              </div>
+            </a>
+
+            <a
+              class="blog-card"
+              href="why-deep-rl-for-portfolios.html"
+              data-type="Research"
+              data-date="2026-02-17"
+            >
+              <div class="blog-card-cover">
+                <img
+                  src="../images/blog_thumbs/17-02-26.webp"
+                  alt="Why Deep Reinforcement Learning Might Change Portfolio Management"
+                  loading="lazy"
+                />
+              </div>
+              <div class="blog-card-body">
+                <div class="blog-meta">
+                  <span class="tag">Research</span><span>Feb 2026</span>
+                </div>
+                <h3>
+                  Why Deep Reinforcement Learning Might Change Portfolio
+                  Management
+                </h3>
+                <p>
+                  What DRL agents actually learn, and where they still fall
+                  short of a human portfolio manager.
+                </p>
+                <span class="blog-read-more">Read post →</span>
+              </div>
+            </a>
+
+            <a
+              class="blog-card"
+              href="welcome.html"
+              data-type="Notes"
+              data-date="2026-01-10"
+            >
+              <div class="blog-card-cover">
+                <img
+                  src="../images/blog_thumbs/10-01-26.webp"
+                  alt="Welcome — What This Blog Is For"
+                  loading="lazy"
+                />
+              </div>
+              <div class="blog-card-body">
+                <div class="blog-meta">
+                  <span class="tag">Notes</span><span>Jan 2026</span>
+                </div>
+                <h3>Welcome — What This Blog Is For</h3>
+                <p>
+                  Why I'm writing alongside the PhD, and what to expect from
+                  this space.
+                </p>
+                <span class="blog-read-more">Read post →</span>
+              </div>
+            </a>
+            <!-- BLOG_GRID:END -->
+          </div>
+
+          <p class="link-note" style="margin-top: 32px">
+            New here? See <code>blog/README.md</code> in the project files for
+            how to add a new post.
+          </p>
         </div>
+      </section>
+    </main>
 
-        <div class="filter-group">
-          <label for="blogFilterYear">Year</label>
-          <select id="blogFilterYear">
-            <option value="all">All years</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label for="blogFilterMonth">Month</label>
-          <select id="blogFilterMonth">
-            <option value="all">All months</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label for="blogSort">Sort by</label>
-          <select id="blogSort">
-            <option value="newest">Date, newest first</option>
-            <option value="oldest">Date, oldest first</option>
-          </select>
-        </div>
-
-        <button type="button" class="btn btn-outline btn-sm filter-reset" id="blogResetFilters">Reset</button>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
+        <a href="#top" class="back-to-top">Back to top ↑</a>
       </div>
+    </footer>
 
-      <p class="filter-empty-state" id="blogEmptyState" hidden>No posts match these filters.</p>
-
-      <div class="blog-grid" id="blogGrid">
-      <!-- BLOG_GRID:START -->
-        <a class="blog-card" href="reading-a-reward-curve.html" data-type="Field Notes" data-date="2026-03-03">
-          <div class="blog-card-cover">
-            <img src="../images/blog_thumbs/03-03-26.webp" alt="Reading a Reward Curve: What Six Months of Training Logs Taught Me" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-meta"><span class="tag">Field Notes</span><span>Mar 2026</span></div>
-            <h3>Reading a Reward Curve: What Six Months of Training Logs Taught Me</h3>
-            <p>What a noisy training curve tells you about a policy — long before backtest metrics do.</p>
-            <span class="blog-read-more">Read post →</span>
-          </div>
-        </a>
-
-        <a class="blog-card" href="why-deep-rl-for-portfolios.html" data-type="Research" data-date="2026-02-17">
-          <div class="blog-card-cover">
-            <img src="../images/blog_thumbs/17-02-26.webp" alt="Why Deep Reinforcement Learning Might Change Portfolio Management" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-meta"><span class="tag">Research</span><span>Feb 2026</span></div>
-            <h3>Why Deep Reinforcement Learning Might Change Portfolio Management</h3>
-            <p>What DRL agents actually learn, and where they still fall short of a human portfolio manager.</p>
-            <span class="blog-read-more">Read post →</span>
-          </div>
-        </a>
-
-        <a class="blog-card" href="welcome.html" data-type="Notes" data-date="2026-01-10">
-          <div class="blog-card-cover">
-            <img src="../images/blog_thumbs/10-01-26.webp" alt="Welcome — What This Blog Is For" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-meta"><span class="tag">Notes</span><span>Jan 2026</span></div>
-            <h3>Welcome — What This Blog Is For</h3>
-            <p>Why I'm writing alongside the PhD, and what to expect from this space.</p>
-            <span class="blog-read-more">Read post →</span>
-          </div>
-        </a>
-      <!-- BLOG_GRID:END -->
-      </div>
-
-      <p class="link-note" style="margin-top:32px;">
-        New here? See <code>blog/README.md</code> in the project files for how to add a new post.
-      </p>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p>&copy; <span id="year"></span> Iqbal K I. All rights reserved.</p>
-    <a href="#top" class="back-to-top">Back to top ↑</a>
-  </div>
-</footer>
-
-<script src="../js/script.js"></script>
-</body>
+    <script src="../js/script.js"></script>
+  </body>
 </html>
